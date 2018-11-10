@@ -312,6 +312,56 @@ editor  -- 编辑
             'type' => 'textarea');
 
 
+    // 首页其他信息配置
+    $options[] = array(
+        'name' => __('首页其他信息配置', 'options_framework_theme'),
+        'type' => 'heading');
+
+    // 首页关于我们
+    $options[] = array(
+    'name' => __('首页关于我们', 'options_framework_theme'),
+    'desc' => __('关于我们页面ID', 'options_framework_theme'),
+    'id' => 'gywm_page_id',
+    'class' => 'mini',
+    'type' => 'text');
+
+    // 项目服务案例
+    $options[] = array(
+        'name' => __('项目服务案例一', 'options_framework_theme'),
+        'desc' => __('服务案例一（ID）', 'options_framework_theme'),
+        'id' => 'fwal_1',
+        'class' => 'mini',
+        'type' => 'text');
+
+    $options[] = array(
+        'name' => __('项目服务案例二', 'options_framework_theme'),
+        'desc' => __('服务案例二（ID）', 'options_framework_theme'),
+        'id' => 'fwal_2',
+        'class' => 'mini',
+        'type' => 'text');
+
+    $options[] = array(
+        'name' => __('项目服务案例三', 'options_framework_theme'),
+        'desc' => __('服务案例三（ID）', 'options_framework_theme'),
+        'id' => 'fwal_3',
+        'class' => 'mini',
+        'type' => 'text');
+
+    $options[] = array(
+        'name' => __('项目服务案例四', 'options_framework_theme'),
+        'desc' => __('服务案例四（ID）', 'options_framework_theme'),
+        'id' => 'fwal_4',
+        'class' => 'mini',
+        'type' => 'text');
+
+// 广告团队
+    $options[] = array(
+        'name' => __('广告团队', 'options_framework_theme'),
+        'desc' => __('广告团队（ID）', 'options_framework_theme'),
+        'id' => 'll_ggtd',
+        'class' => 'mini',
+        'type' => 'text');
+
     $options[] = array(
         'name' => __('高级设置', 'options_framework_theme'),
         'type' => 'heading');

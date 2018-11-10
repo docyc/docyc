@@ -32,6 +32,17 @@
 
 <body>
 
+<?php 
+    // $my_query = new WP_Query(array(
+    //     'type' => 'page',
+    //     'page_id'    => 21
+    // ))
+?>
+<?php 
+    // var_dump($my_query->posts);
+?>
+<hr>
+
 <script>
     $(document).ready(function(){
         function myanimate(el,drc="top"){
@@ -367,76 +378,87 @@
 
 
 <script>
-var oDiv = document.querySelector("#lineMove");
-    var oUl = document.querySelector("#lineMove ul");
-    var n = 0;
-    var timer;
-    oUl.innerHTML += oUl.innerHTML;
+    var oDiv = document.querySelector("#lineMove");
+        var oUl = document.querySelector("#lineMove ul");
+        var n = 0;
+        var timer;
+        oUl.innerHTML += oUl.innerHTML;
 
-    var arrLi = document.querySelectorAll("#lineMove li");
+        var arrLi = document.querySelectorAll("#lineMove li");
 
-    var w = parseFloat(getComputedStyle(arrLi[0]).width);
+        var w = parseFloat(getComputedStyle(arrLi[0]).width);
 
-    oUl.style.width = w*arrLi.length + "px";
+        oUl.style.width = w*arrLi.length + "px";
 
 
-startMove();
-var num =w*arrLi.length/2;
-// console.log(num)
-function lineMove(){
-    n  -= 1; // 速度步伐
+    startMove();
+    var num =w*arrLi.length/2;
+    // console.log(num)
+    function lineMove(){
+        n  -= 1; // 速度步伐
 
-    if(n == -num ){
-    oUl.style.left = 0;
-    n=0;
-    }else{
-    oUl.style.left = n+'px';
+        if(n == -num ){
+        oUl.style.left = 0;
+        n=0;
+        }else{
+        oUl.style.left = n+'px';
+        }
+
+    }
+    function startMove(){
+        timer = setInterval(lineMove,10);
     }
 
-}
-function startMove(){
-    timer = setInterval(lineMove,10);
-}
-
-function stopMove(){
-    clearInterval(timer);
-}
+    function stopMove(){
+        clearInterval(timer);
+    }
 
 
 </script>
 
 
-    <div class="gywm">
-        <div class="container">
-            <div class="md-body">
-                <div class="md-top">
-                    <div id="fadeInDown2" class="md-title">
-                        <b>ABOUT US</b>
-                        <p>关于我们</p>
+<?php 
+    $my_query = new WP_Query(array(
+        'type' => 'page',
+        'page_id'    => _ll2('gywm_page_id')
+    ))
+?>
+
+<?php if($my_query->have_posts()) : ?>
+    <?php while($my_query->have_posts()) : $my_query->the_post() ?>
+
+        <div class="gywm">
+            <div class="container">
+                <div class="md-body">
+                    <div class="md-top">
+                        <div id="fadeInDown2" class="md-title">
+                            <b>ABOUT US</b>
+                            <p>关于我们</p>
+                        </div>
                     </div>
-                </div>
-                <div class="md-bottom">
-                    <div class="md-content">
-                        <div class="container">
-                            <div id="fadeInLeft1" class="col-sm-6 pdg10 ">
-                                <span class="gyc-title" >成都若珂时代广告有限责任公司</span>
-                                <div class="gy-content">
-                                    <p>&nbsp; &nbsp; &nbsp; 成都若珂时代广告有限责任公司是2018年成立于中国成都都江堰的一家高端品质广告机构。秉承“问道·不凡”的企业理念，恪守品质广告的企业精神，注重企业形象建设与品牌提升。始终将高效率、高品质、高服务的企业标准服务于每一位客户。</p>
-                                    <p>&nbsp; &nbsp; &nbsp; “十年广告团队、品质助您前行”，拥有雄厚的广告设计能力，优良的广告服务体系，独特优秀的广告创意方案，精深的业务领域，细心的售后服务，一站式的广告品牌服务。帮助提升您的企业形象，让您的产品具有强大的认知度。用更高的品质助您的企业一路前行。</p>
-                                    <p>&nbsp; &nbsp; &nbsp; <b>我们的业务涵盖：[VIS]企业整体形象打造、标识标牌系统设计制作、画册印刷品设计制作、高端产品设计定制、品牌区域广告执行制作和发布，大型活动组织、会议庆典策划执行、舞台搭建节目演绎、产品摄影、写真输出等综合广告一站式品牌服务。</b></p>
+                    <div class="md-bottom">
+                        <div class="md-content">
+                            <div class="container">
+                                <div id="fadeInLeft1" class="col-sm-6 pdg10 ">
+                                    <span class="gyc-title" ><?php the_title(); ?></span>
+                                    <div class="gy-content">
+                                    <?php the_content(); ?>
+                                    </div>
+                                    <a href="<?php the_permalink(); ?>" class="gy-btnbottom"></a>
                                 </div>
-                                <a class="gy-btnbottom"></a>
-                            </div>
-                            <div class="col-sm-6 pdg10  fadeInRight1">
-                                <div class="gy-img"></div>
+                                <div class="col-sm-6 pdg10  fadeInRight1">
+                                    <div class="gy-img" style="background-image:url(<?php if ( has_post_thumbnail() ) {	the_post_thumbnail_url();}  ?>)"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- .gywm-关于我们 -->
+        <!-- .gywm-关于我们 -->
+    <?php endwhile; ?>
+<?php endif; ?>
+
     <div class="cc-ad hidden-xs">
         <ul class="container">
             <li class="col-sm-3">
@@ -482,6 +504,8 @@ function stopMove(){
         </ul>
     </div>
     <!-- .cc-ad -->
+
+
     <div class="s-anli">
         <div class="container">
             <div class="md-body">
@@ -505,33 +529,32 @@ function stopMove(){
                                     <div class="col-sm-9 hidden-xs">
                                         <div id="fadeInRight2" class="anli-right ">
                                             <div class="container-fluid">
+
+<?php 
+    $my_query = new WP_Query(array(
+        'cat'    => _ll2('fwal_1'),
+        'order'  => 'ASC',
+        'posts_per_page' => 3
+    ))
+?>
+<?php 
+    // var_dump($my_query->posts);
+?>
+<?php if($my_query->have_posts()) : while($my_query->have_posts()) : $my_query->the_post() ?>
                                                 <div class="col-sm-4">
                                                     <div class="anli-list-img">
+                                                    <?php if ( has_post_thumbnail() ) {	the_post_thumbnail(); }else{  ?>
                                                         <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row_01.jpg" alt="" />
+                                                    <?php }  ?>
                                                         <div class="anli-list-hover">
-                                                            <p><a href="#">LOG标识设计</a></p>
+                                                            <p><a href="#"><?php the_title(); ?></a></p>
                                                             <div class="hover-bg"></div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
-                                                    <div class="anli-list-img">
-                                                        <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row_02.jpg" alt="" />
-                                                        <div class="anli-list-hover">
-                                                            <p><a href="#">招牌制作</a></p>
-                                                            <div class="hover-bg"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4 after">
-                                                    <div class="anli-list-img">
-                                                        <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row_03.jpg" alt="" />
-                                                        <div class="anli-list-hover">
-                                                            <p><a href="#">室内形象打造</a></p>
-                                                            <div class="hover-bg"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+<?php endwhile; ?>
+<?php endif; ?>
+
                                             </div>
                                         </div>
                                     </div>
@@ -541,42 +564,33 @@ function stopMove(){
                                 <div class="container">
                                     <div class="col-sm-12 anli-list hidden-xs">
                                         <div id="fadeInLeft2" class="container-fluid ">
+
+
+<?php 
+    $my_query = new WP_Query(array(
+        'cat'    => _ll2('fwal_1'),
+        'order'  => 'ASC',
+        'posts_per_page' => 4,
+        'offset'  => 3
+    ))
+?>
+<?php 
+    // var_dump($my_query->posts);
+?>
+<?php if($my_query->have_posts()) : while($my_query->have_posts()) : $my_query->the_post() ?>
                                             <div class="col-sm-3">
                                                 <div class="anli-list-img">
+                                                <?php if ( has_post_thumbnail() ) {	the_post_thumbnail(); }else{  ?>
                                                     <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row_04.jpg" alt="" />
+                                                <?php }  ?>
                                                     <div class="anli-list-hover">
-                                                        <p><a href="#">文化展示打造</a></p>
+                                                        <p><a href="#"><?php the_title(); ?></a></p>
                                                         <div class="hover-bg"></div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3">
-                                                <div class="anli-list-img">
-                                                    <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row_05.jpg" alt="" />
-                                                    <div class="anli-list-hover">
-                                                        <p><a href="#">画册印刷品</a></p>
-                                                        <div class="hover-bg"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="anli-list-img">
-                                                    <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row_06.jpg" alt="" />
-                                                    <div class="anli-list-hover">
-                                                        <p><a href="#">精品字展示</a></p>
-                                                        <div class="hover-bg"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3 after">
-                                                <div class="anli-list-img">
-                                                    <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row_07.jpg" alt="" />
-                                                    <div class="anli-list-hover">
-                                                        <p><a href="#">展架展板公示栏</a></p>
-                                                        <div class="hover-bg"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
+<?php endwhile; ?>
+<?php endif; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -597,33 +611,30 @@ function stopMove(){
                                     <div class="col-sm-9 hidden-xs">
                                         <div id="fadeInRight3" class="anli-right ">
                                             <div class="container-fluid">
+<?php 
+    $my_query = new WP_Query(array(
+        'cat'    => _ll2('fwal_2'),
+        'order'  => 'ASC',
+        'posts_per_page' => 3
+    ))
+?>
+<?php 
+    // var_dump($my_query->posts);
+?>
+<?php if($my_query->have_posts()) : while($my_query->have_posts()) : $my_query->the_post() ?>
                                                 <div class="col-sm-4">
                                                     <div class="anli-list-img">
-                                                        <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row2_01.jpg" alt="" />
+                                                <?php if ( has_post_thumbnail() ) {	the_post_thumbnail(); }else{  ?>
+                                                    <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row2_01.jpg" alt="" />
+                                                <?php }  ?>
                                                         <div class="anli-list-hover">
-                                                            <p><a href="#">道路交通指示牌</a></p>
+                                                            <p><a href="#"><?php the_title(); ?></a></p>
                                                             <div class="hover-bg"></div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
-                                                    <div class="anli-list-img">
-                                                        <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row2_02.jpg" alt="" />
-                                                        <div class="anli-list-hover">
-                                                            <p><a href="#">精神堡垒</a></p>
-                                                            <div class="hover-bg"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4 after">
-                                                    <div class="anli-list-img">
-                                                        <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row2_03.jpg" alt="" />
-                                                        <div class="anli-list-hover">
-                                                            <p><a href="#">酒店学校标牌</a></p>
-                                                            <div class="hover-bg"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+<?php endwhile; ?>
+<?php endif; ?>
                                             </div>
                                         </div>
                                     </div>
@@ -633,42 +644,31 @@ function stopMove(){
                                 <div class="container">
                                     <div class="col-sm-12 anli-list hidden-xs">
                                         <div id="fadeInLeft3" class="container-fluid ">
+<?php 
+    $my_query = new WP_Query(array(
+        'cat'    => _ll2('fwal_2'),
+        'order'  => 'ASC',
+        'posts_per_page' => 4,
+        'offset'  => 3
+    ))
+?>
+<?php 
+    // var_dump($my_query->posts);
+?>
+<?php if($my_query->have_posts()) : while($my_query->have_posts()) : $my_query->the_post() ?>
                                             <div class="col-sm-3">
                                                 <div class="anli-list-img">
+                                                <?php if ( has_post_thumbnail() ) {	the_post_thumbnail(); }else{  ?>
                                                     <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row2_04.jpg" alt="" />
+                                                <?php }  ?>
                                                     <div class="anli-list-hover">
-                                                        <p><a href="#">创意标识牌</a></p>
+                                                        <p><a href="#"><?php the_title(); ?></a></p>
                                                         <div class="hover-bg"></div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3">
-                                                <div class="anli-list-img">
-                                                    <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row2_05.jpg" alt="" />
-                                                    <div class="anli-list-hover">
-                                                        <p><a href="#">仿古公示栏</a></p>
-                                                        <div class="hover-bg"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="anli-list-img">
-                                                    <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row2_06.jpg" alt="" />
-                                                    <div class="anli-list-hover">
-                                                        <p><a href="#">党建现代公示栏</a></p>
-                                                        <div class="hover-bg"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3 after">
-                                                <div class="anli-list-img">
-                                                    <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row2_07.jpg" alt="" />
-                                                    <div class="anli-list-hover">
-                                                        <p><a href="#">楼宇大型标牌</a></p>
-                                                        <div class="hover-bg"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
+<?php endwhile; ?>
+<?php endif; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -689,33 +689,30 @@ function stopMove(){
                                     <div class="col-sm-9 hidden-xs">
                                         <div id="fadeInRight4" class="anli-right ">
                                             <div class="container-fluid">
+<?php 
+    $my_query = new WP_Query(array(
+        'cat'    => _ll2('fwal_3'),
+        'order'  => 'ASC',
+        'posts_per_page' => 3
+    ))
+?>
+<?php 
+    // var_dump($my_query->posts);
+?>
+<?php if($my_query->have_posts()) : while($my_query->have_posts()) : $my_query->the_post() ?>
                                                 <div class="col-sm-4">
                                                     <div class="anli-list-img">
-                                                        <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row3_01.jpg" alt="" />
+                                                <?php if ( has_post_thumbnail() ) {	the_post_thumbnail(); }else{  ?>
+                                                    <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row3_01.jpg" alt="" />
+                                                <?php }  ?>
                                                         <div class="anli-list-hover">
-                                                            <p><a href="#">四川冰源食品开业庆典</a></p>
+                                                            <p><a href="#"><?php the_title(); ?></a></p>
                                                             <div class="hover-bg"></div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
-                                                    <div class="anli-list-img">
-                                                        <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row3_02.jpg" alt="" />
-                                                        <div class="anli-list-hover">
-                                                            <p><a href="#">新华文轩会议服务</a></p>
-                                                            <div class="hover-bg"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4 after">
-                                                    <div class="anli-list-img">
-                                                        <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row3_03.jpg" alt="" />
-                                                        <div class="anli-list-hover">
-                                                            <p><a href="#">工商职业技术学院艺术周开幕式</a></p>
-                                                            <div class="hover-bg"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+<?php endwhile; ?>
+<?php endif; ?>
                                             </div>
                                         </div>
                                     </div>
@@ -725,42 +722,31 @@ function stopMove(){
                                 <div class="container">
                                     <div class="col-sm-12 anli-list hidden-xs">
                                         <div id="fadeInLeft4" class="container-fluid ">
+<?php 
+    $my_query = new WP_Query(array(
+        'cat'    => _ll2('fwal_3'),
+        'order'  => 'ASC',
+        'posts_per_page' => 4,
+        'offset'  => 3
+    ))
+?>
+<?php 
+    // var_dump($my_query->posts);
+?>
+<?php if($my_query->have_posts()) : while($my_query->have_posts()) : $my_query->the_post() ?>
                                             <div class="col-sm-3">
                                                 <div class="anli-list-img">
+                                                <?php if ( has_post_thumbnail() ) {	the_post_thumbnail(); }else{  ?>
                                                     <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row3_04.jpg" alt="" />
+                                                <?php }  ?>
                                                     <div class="anli-list-hover">
-                                                        <p><a href="#">中国人寿会议服务</a></p>
+                                                        <p><a href="#"><?php the_title(); ?></a></p>
                                                         <div class="hover-bg"></div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3">
-                                                <div class="anli-list-img">
-                                                    <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row3_05.jpg" alt="" />
-                                                    <div class="anli-list-hover">
-                                                        <p><a href="#">喜爱直播马拉松背景搭建</a></p>
-                                                        <div class="hover-bg"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="anli-list-img">
-                                                    <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row3_06.jpg" alt="" />
-                                                    <div class="anli-list-hover">
-                                                        <p><a href="#">营销大会 舞台搭建</a></p>
-                                                        <div class="hover-bg"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3 after">
-                                                <div class="anli-list-img">
-                                                    <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row3_07.jpg" alt="" />
-                                                    <div class="anli-list-hover">
-                                                        <p><a href="#">虹口漂流搭建及演绎</a></p>
-                                                        <div class="hover-bg"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
+<?php endwhile; ?>
+<?php endif; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -781,33 +767,30 @@ function stopMove(){
                                     <div class="col-sm-9 hidden-xs">
                                         <div id="fadeInRight5" class="anli-right ">
                                             <div class="container-fluid">
+<?php 
+    $my_query = new WP_Query(array(
+        'cat'    => _ll2('fwal_4'),
+        'order'  => 'ASC',
+        'posts_per_page' => 3
+    ))
+?>
+<?php 
+    // var_dump($my_query->posts);
+?>
+<?php if($my_query->have_posts()) : while($my_query->have_posts()) : $my_query->the_post() ?>
                                                 <div class="col-sm-4">
                                                     <div class="anli-list-img">
-                                                        <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row4_01.jpg" alt="" />
+                                                <?php if ( has_post_thumbnail() ) {	the_post_thumbnail(); }else{  ?>
+                                                    <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row4_01.jpg" alt="" />
+                                                <?php }  ?>
                                                         <div class="anli-list-hover">
-                                                            <p><a href="#">墙画+立体海盗船创造</a></p>
+                                                            <p><a href="#"><?php the_title(); ?></a></p>
                                                             <div class="hover-bg"></div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
-                                                    <div class="anli-list-img">
-                                                        <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row4_02.jpg" alt="" />
-                                                        <div class="anli-list-hover">
-                                                            <p><a href="#">个性版画订制</a></p>
-                                                            <div class="hover-bg"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-4 after">
-                                                    <div class="anli-list-img">
-                                                        <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row4_03.jpg" alt="" />
-                                                        <div class="anli-list-hover">
-                                                            <p><a href="#">纸杯恐龙创造</a></p>
-                                                            <div class="hover-bg"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+<?php endwhile; ?>
+<?php endif; ?>
                                             </div>
                                         </div>
                                     </div>
@@ -817,42 +800,31 @@ function stopMove(){
                                 <div class="container">
                                     <div class="col-sm-12 anli-list hidden-xs">
                                         <div id="fadeInLeft5" class="container-fluid ">
+<?php 
+    $my_query = new WP_Query(array(
+        'cat'    => _ll2('fwal_4'),
+        'order'  => 'ASC',
+        'posts_per_page' => 4,
+        'offset'  => 3
+    ))
+?>
+<?php 
+    // var_dump($my_query->posts);
+?>
+<?php if($my_query->have_posts()) : while($my_query->have_posts()) : $my_query->the_post() ?>
                                             <div class="col-sm-3">
                                                 <div class="anli-list-img">
+                                                <?php if ( has_post_thumbnail() ) {	the_post_thumbnail(); }else{  ?>
                                                     <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row4_04.jpg" alt="" />
+                                                <?php }  ?>
                                                     <div class="anli-list-hover">
-                                                        <p><a href="#">侏罗纪工艺品创造</a></p>
+                                                        <p><a href="#"><?php the_title(); ?></a></p>
                                                         <div class="hover-bg"></div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3">
-                                                <div class="anli-list-img">
-                                                    <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row4_05.jpg" alt="" />
-                                                    <div class="anli-list-hover">
-                                                        <p><a href="#">积木世界地图创造</a></p>
-                                                        <div class="hover-bg"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="anli-list-img">
-                                                    <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row4_06.jpg" alt="" />
-                                                    <div class="anli-list-hover">
-                                                        <p><a href="#">折纸恐龙</a></p>
-                                                        <div class="hover-bg"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3 after">
-                                                <div class="anli-list-img">
-                                                    <img src="<?php echo get_template_directory_uri(); ?>/images/anli/row4_07.jpg" alt="" />
-                                                    <div class="anli-list-hover">
-                                                        <p><a href="#">个性创造工艺品软装饰</a></p>
-                                                        <div class="hover-bg"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
+<?php endwhile; ?>
+<?php endif; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -880,38 +852,29 @@ function stopMove(){
                 <div class="md-bottom">
                     <div class="md-content">
                         <ul id="fadeInUp2" class="td-list">
+<?php 
+    $my_query = new WP_Query(array(
+        'cat'    => _ll2('ll_ggtd'),
+        'order'  => 'ASC'
+        // 'posts_per_page' => 4,
+        // 'offset'  => 3
+    ))
+?>
+<?php 
+    // var_dump($my_query->posts);
+?>
+<?php if($my_query->have_posts()) : while($my_query->have_posts()) : $my_query->the_post() ?>
                             <li>
-                                <div class="td-list01">
+                                <div class="td-list01" style="background-image:url(<?php if ( has_post_thumbnail() ) {	the_post_thumbnail_url();}  ?>);">
                                     <div class="td-item">
-                                        <h3><a href="#">赵梓良</a></h3>
-                                        <p>若珂时代 / 市场总监</p>
+                                        <h3><a href="#"><?php the_title(); ?></a></h3>
+                                        <p><?php echo get_post_custom_values( 'zhiwu' )[0]; ?></p>
                                     </div>
                                 </div>
                             </li>
-                            <li>
-                                <div class="td-list02">
-                                    <div class="td-item">
-                                        <h3><a href="#">邱朋</a></h3>
-                                        <p>若珂时代 / 设计总监</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="td-list03">
-                                    <div class="td-item">
-                                        <h3><a href="#">杨晓</a></h3>
-                                        <p>若珂时代 / 广告经理</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="after">
-                                <div class="td-list04">
-                                    <div class="td-item">
-                                        <h3><a href="#">何胜荣</a></h3>
-                                        <p>若珂时代 / 广告经理</p>
-                                    </div>
-                                </div>
-                            </li>
+<?php endwhile; ?>
+<?php endif; ?>
+
                         </ul>
                     </div>
                 </div>
@@ -937,7 +900,7 @@ function stopMove(){
                             </div>
                             <div id="fadeInRight6" class="col-sm-4">
                                 <div class="c-ewm">
-                                <img src="<?php echo get_template_directory_uri(); ?>/images/ewm.jpg" alt="" />
+                                <img src="<?php echo _ll2('ll_ewm'); ?>" alt="" />
                                 </div>
                             </div>
                         </div>
