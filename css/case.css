@@ -476,6 +476,7 @@ a:hover {
 
 .nav {
   height: 100px;
+  border-bottom:2px solid #444443;
 }
 .nav .logo img {
   width: 200px;

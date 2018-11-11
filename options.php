@@ -97,10 +97,22 @@ editor  -- 编辑
     'type' => 'upload');
     // 电话
     $options[] = array(
-        'name' => __('联系电话', 'options_framework_theme'),
+        'name' => __('联系电话1', 'options_framework_theme'),
         'desc' => __('请输入手机号码或座机号码', 'options_framework_theme'),
         'id' => 'll_tel1',
         'std' => '028-8888888',
+        'type' => 'text');
+    $options[] = array(
+        'name' => __('联系电话2', 'options_framework_theme'),
+        'desc' => __('请输入手机号码或座机号码', 'options_framework_theme'),
+        'id' => 'll_tel2',
+        'std' => '028-8888888',
+        'type' => 'text');
+    $options[] = array(
+        'name' => __('联系电话3', 'options_framework_theme'),
+        'desc' => __('请输入手机号码或座机号码', 'options_framework_theme'),
+        'id' => 'll_tel3',
+        'std' => '18599991151(赵)    18888888888(赵)    13866666666(赵)',
         'type' => 'text');
     // QQ
     $options[] = array(
@@ -122,6 +134,13 @@ editor  -- 编辑
         'desc' => __('请输入详细的联系地址', 'options_framework_theme'),
         'id' => 'll_address',
         'std' => '四川省成都市XXX',
+        'type' => 'text');
+    // 地址经纬度
+    $options[] = array(
+        'name' => __('地址经纬度', 'options_framework_theme'),
+        'desc' => __('百度经纬度，例如：116.404, 39.915', 'options_framework_theme'),
+        'id' => 'll_baidu_jwd',
+        'std' => '116.404, 39.915',
         'type' => 'text');
     // 网站备案号
     $options[] = array(
@@ -361,6 +380,25 @@ editor  -- 编辑
         'id' => 'll_ggtd',
         'class' => 'mini',
         'type' => 'text');
+
+    // SEO
+    $options[] = array(
+        'name' => __('SEO', 'options_framework_theme'),
+        'type' => 'heading');
+
+    $options[] = array(
+        'name' => __('关键词', 'options_framework_theme'),
+        'desc' => __('例如：XX公司,XX品牌等，多个使用英文逗号分割', 'options_framework_theme'),
+        'id' => 'll_seo_gjc',
+        'type' => 'text');
+
+    $options[] = array(
+        'name' => __('网站描述', 'options_framework_theme'),
+        'desc' => __('例如：简短介绍', 'options_framework_theme'),
+        'id' => 'll_seo_ms',
+        'type' => 'textarea');
+
+
 
     $options[] = array(
         'name' => __('高级设置', 'options_framework_theme'),

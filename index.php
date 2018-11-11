@@ -1,188 +1,35 @@
-﻿<!DOCTYPE html>
-<html lang="zh-CN">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="keywords" content="成都若珂时代广告, 若珂时代广告, 都江堰若珂时代广告, 都江堰广告" />
-    <meta name="description" content="秉承“问道·不凡”的企业理念，恪守品质广告的企业精神，注重企业形象建设与品牌提升。" />
-    <meta content="telephone=no" name="format-detection" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="renderer" content="webkit">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
-    <meta name="full-screen" content="yes">
-    <link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/images/img/favicon.ico">
-    <title><?php wp_title('-',true,'right'); ?></title>
-    <!-- bootstrap v3.3.7 -->
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/lib/bootstrap-3.3.7/css/bootstrap.css" />
-    <!-- animate.css 动画 -->
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/lib/animate.css/animate.css" />
-    <!-- swiper -->
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/lib/swiper-4.4.1/css/swiper.min.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/index.css" />
-    <script src="<?php echo get_template_directory_uri(); ?>/lib/jquery1.12.4/jquery.min.js"></script>
-    <script src="<?php echo get_template_directory_uri(); ?>/lib/swiper-4.4.1/js/swiper.min.js"></script>
-    <script src="<?php echo get_template_directory_uri(); ?>/lib/waypoints/jquery.waypoints.js"></script>
-    <script src="<?php echo get_template_directory_uri(); ?>/js/move.js"></script>
-    <!-- <script type="text/javascript" src="https://api.map.baidu.com/api?v=1.4"></script> -->
-    <!-- <script src="<?php echo get_template_directory_uri(); ?>/js/baiduMap.js"></script> -->
-    <!-- <script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=kpIZZ664I8VuhRdey1zStcG4uHuu27aQ"></script> -->
-
-    <?php wp_head();?>
-</head>
-
-<body>
-
-<?php 
-    // $my_query = new WP_Query(array(
-    //     'type' => 'page',
-    //     'page_id'    => 21
-    // ))
-?>
-<?php 
-    // var_dump($my_query->posts);
-?>
-<hr>
-
-<script>
-    $(document).ready(function(){
-        function myanimate(el,drc="top"){
-
-            switch(drc){
-                case 'top':
-                    // 上进入
-                    $(el).waypoint(function(direction) {
-                      $(el).addClass('animated fadeInDown')
-                      setTimeout(()=>{
-                        $(el).removeClass('animated fadeInDown')
-                      }, 2000)
-                    }, {
-                      offset: '100%'
-                    });
-                    break;
-                case 'right':
-                    // 右进入
-                    $(el).waypoint(function(direction) {
-                      $(el).addClass('animated fadeInRight')
-                      setTimeout(()=>{
-                        $(el).removeClass('animated fadeInRight')
-                      }, 2000)
-                    }, {
-                      offset: '100%'
-                    });
-                    break;
-                case 'bottom':
-                    // 下进入
-                    $(el).waypoint(function(direction) {
-                      $(el).addClass('animated fadeInUp')
-                      setTimeout(()=>{
-                        $(el).removeClass('animated fadeInUp')
-                      }, 2000)
-                    }, {
-                      offset: '100%'
-                    });
-                    break;
-                case 'left':
-                    // 左进入
-                    $(el).waypoint(function(direction) {
-                      $(el).addClass('animated fadeInLeft')
-                      setTimeout(()=>{
-                        $(el).removeClass('animated fadeInLeft')
-                      }, 2000)
-                    }, {
-                      offset: '100%'
-                    });
-                    break;
-            }
-        }
+﻿<?php get_header(); ?>
 
 
+    <script>
+        $(document).ready(function(){
+            myanimate('#fadeInDown1','top');
+            myanimate('#fadeInDown2','top');
+            myanimate('#fadeInDown3','top');
+            myanimate('#fadeInDown4','top');
+            myanimate('#fadeInDown5','top');
+            myanimate('#fadeInDown6','top');
+            myanimate('#fadeInDown7','top');
 
-        myanimate('#fadeInDown1','top');
-        myanimate('#fadeInDown2','top');
-        myanimate('#fadeInDown3','top');
-        myanimate('#fadeInDown4','top');
-        myanimate('#fadeInDown5','top');
-        myanimate('#fadeInDown6','top');
-        myanimate('#fadeInDown7','top');
+            myanimate('#fadeInRight1','right');
+            myanimate('#fadeInRight2','right');
+            myanimate('#fadeInRight3','right');
+            myanimate('#fadeInRight4','right');
+            myanimate('#fadeInRight5','right');
+            myanimate('#fadeInRight6','right');
 
-        myanimate('#fadeInRight1','right');
-        myanimate('#fadeInRight2','right');
-        myanimate('#fadeInRight3','right');
-        myanimate('#fadeInRight4','right');
-        myanimate('#fadeInRight5','right');
-        myanimate('#fadeInRight6','right');
+            myanimate('#fadeInLeft1','left');
+            myanimate('#fadeInLeft2','left');
+            myanimate('#fadeInLeft3','left');
+            myanimate('#fadeInLeft4','left');
+            myanimate('#fadeInLeft5','left');
+            myanimate('#fadeInLeft6','left');
 
-        myanimate('#fadeInLeft1','left');
-        myanimate('#fadeInLeft2','left');
-        myanimate('#fadeInLeft3','left');
-        myanimate('#fadeInLeft4','left');
-        myanimate('#fadeInLeft5','left');
-        myanimate('#fadeInLeft6','left');
-
-        myanimate('#fadeInUp1','bottom');
-        myanimate('#fadeInUp2','bottom');
-        myanimate('#fadeInUp3','bottom');
-
-    });
-
-
-</script>
-
-
-
-
-    <div class="topbar hidden-xs">
-        <div class="container">
-            <div class="fl"><a href="<?php bloginfo('url'); ?>/wp-login.php">登陆</a><em> | </em><a href="javescript:;" >免费注册</a></div>
-            <div class="fr">
-                <a href="#">设为首页</a>
-                <em> | </em>
-                <a href="#">加入收藏</a>
-                <em> | </em>
-                <a href="#">在线留言</a>
-                <em> | </em>
-                <a href="#">企业位置</a>
-            </div>
-        </div>
-    </div>
-    <!-- .topbar -->
-    <div class="nav">
-        <div class="container">
-            <div class="logo col-sm-4 col-xs-12">
-                <a href="<?php bloginfo('url'); ?>">
-        <?php if ( _ll2('docyc_logo') ) { ?>
-            <img src="<?php echo _ll2('docyc_logo'); ?>
-        <?php }else{ ?>
-            <img src="<?php echo get_template_directory_uri(); ?>/images/logo.jpg
-        <?php } ?>
-                " alt="<?php bloginfo('name'); ?>" title="<?php bloginfo('name'); ?>" /></a>
-            </div>
-            <div class="col-sm-8 hidden-xs">
-                <div class="fr navright">
-                    <?php wp_nav_menu( array(
-                      'theme_location'              => 'zhudaohang',                                  //[保留]
-                      'menu'                                => '',                                  //[可删]
-                      'container'                           => '',                           //[可删]
-                      'container_class'             => '',                                  //[可删]
-                      'container_id'                    => 'nav',                                  //[可删]
-                      'menu_class'                  => '',                      //[可删]
-                      'menu_id'                         => '',                                  //[可删]
-                      'echo'                                => true,                            //[可删]
-                      'fallback_cb'                     => 'wp_page_menu',      //[可删]
-                      'before'                              => '',                                  //[可删]
-                      'after'                                   => '',                                  //[可删]
-                      'link_before'                     => '',                                  //[可删]
-                      'link_after'                          => '',                                  //[可删]
-                      'items_wrap'                      => '<ul id="%1$s" class="%2$s menu">%3$s</ul>',  //[可删]
-                      'depth'                               => 0,                               //[可删]
-                      'walker'                              => ''                                   //[可删]
-                    ) );
-                    ?>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- .nav -->
+            myanimate('#fadeInUp1','bottom');
+            myanimate('#fadeInUp2','bottom');
+            myanimate('#fadeInUp3','bottom');
+        });
+    </script>
     <div class="banner">
         <div class="swiper-container">
             <div class="swiper-wrapper">
@@ -442,7 +289,8 @@
                                 <div id="fadeInLeft1" class="col-sm-6 pdg10 ">
                                     <span class="gyc-title" ><?php the_title(); ?></span>
                                     <div class="gy-content">
-                                    <?php the_content(); ?>
+                                    <?php $docyctxt = get_the_content(); ?>
+                                    <?php echo ll2_strimwidth( $docyctxt, 360); ?>    
                                     </div>
                                     <a href="<?php the_permalink(); ?>" class="gy-btnbottom"></a>
                                 </div>
@@ -867,7 +715,7 @@
                             <li>
                                 <div class="td-list01" style="background-image:url(<?php if ( has_post_thumbnail() ) {	the_post_thumbnail_url();}  ?>);">
                                     <div class="td-item">
-                                        <h3><a href="#"><?php the_title(); ?></a></h3>
+                                        <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
                                         <p><?php echo get_post_custom_values( 'zhiwu' )[0]; ?></p>
                                     </div>
                                 </div>
@@ -882,6 +730,7 @@
         </div>
     </div>
     <!-- .ad-team -->
+
     <div class="contact">
         <div class="container">
             <div class="md-body">
@@ -896,7 +745,7 @@
                     <div class="md-content">
                         <div class="container">
                             <div id="fadeInLeft6" class="col-sm-8">
-                                <div id="dituContent" class="allmap"></div>
+                                <div id="baiduMapC" class="allmap"></div>
                             </div>
                             <div id="fadeInRight6" class="col-sm-4">
                                 <div class="c-ewm">
@@ -911,272 +760,16 @@
     </div>
     <!-- .contact -->
 
-    <div class="footer">
-        <div class="f-top">
-            <div class="container">
-                <div class="col-sm-7">
-                    <div class="f-nav">
-<!--                         <ul>
-                            <li class="before"><a href="#">底导航</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</li>
-                            <li><a href="#">底导航</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</li>
-                            <li><a href="#">底导航</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</li>
-                            <li><a href="#">底导航</a></li>
-                        </ul>
-                        <br /> -->
-                        <h3>成都若珂时代广告有限责任公司</h3>
-                    <p>地址：四川省成都市都江堰市彩虹大道南段362-364号</p>
-                    <p>联系方式：
-                        <a href="tel:18599991151">18599991151(赵)&nbsp;&nbsp;&nbsp;</a>
-                        <a href="tel:18599991151">18888888888(赵)&nbsp;&nbsp;&nbsp;</a>
-                        <a href="tel:18599991151">13866666666(赵)&nbsp;&nbsp;&nbsp;</a>
-                    </p>
-                    <p>邮箱：<a href="Email:admin@admin.com">admin@admin.com</a></p>
-                    </div>
-                </div>
-                <div class="col-sm-5">
-                    <div class="f-call">
-                        <span>185 9999 1151</span>
-                        <p>工作时间 / 周一至周日：9:00-18:00</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="f-bottom">
-            <div class="container">
-
-                    <div class="f-nav">
-
-
-            <a href="#">底导航</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="#">底导航</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="#">底导航</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="#">底导航</a>
-
-
-                    </div>
-                    <p>Copyright @ 2018 . All rights reserved.   蜀ICP备18018201号-1</p>
-
-            </div>
-        </div>
-    </div>
-    <!-- .footer -->
-    <a class="backTop_Z" id="backTop" onclick="backTop();" href="javascript:void(0);" style="display: block;"></a>
-    <script type="text/javascript">
-        window.onscroll=function(){
-            var winTop_1=document.documentElement.scrollTop;
-            var winTop_2=document.body.scrollTop;
-            var winTop;
-            (winTop_1>winTop_2)?winTop=winTop_1:winTop=winTop_2;
-            if(winTop>0){
-                $("#backTop").css({'display':'block'});
-            }
-            if(winTop == 0){
-                $("#backTop").css({'display':'none'});
-            }
-        }
-
-        function backTop(){
-            $("html,body").animate({scrollTop:0},1000); ;
-        }
-
-</script>
-
-
-        <!--online_type==6(2016在线客服)START-->
-    <script language="JavaScript" src="<?php echo get_template_directory_uri(); ?>/js/new_online_2016.js"></script>
-    <!-- <link href="/css/new_online2016/sidebar_style.css" rel="stylesheet" type="text/css" /> -->
-    <!-- <link href="/css/new_online2016/sidebar_color4/sidebar_color.css" rel="stylesheet" type="text/css" /> -->
-    <div id="onService_panel" class="qq_onService_panel">
-        <div class="sidebar2_Mo">
-            <div class="sidebar2_list">
-                <div class="sidebar2_listT ie_w">
-                    <div class="list_c"></div>
-                </div>
-                <div class="sidebar2_listC">
-                    <a id="prev_btn" class="prev_btn" href="###">
-                        <img src="<?php echo get_template_directory_uri(); ?>/images/img/prev_icon.png">
-                    </a>
-                    <ul class="function_list">
-                    <!---电话-->
-                                                <li class="list">
-                            <a class="tel_icon" href="###"></a>
-                            <div class="lxwm_tel alt_c" style="right: -178px; opacity: 0;">
-                                <div class="sidebar2_listT">
-                                    <div class="list_c"></div>
-                                </div>
-                                <div class="lxwm_c alt_bg">
-                                    <h2 class="lxwm_tit">&#30005;&#35805;&#30452;&#21628;</h2>
-                                    <ul class="lxwm_list clearfix">
-                                        <li>18599991151</li>
-                                        <li>18599991151</li>
-                                    </ul>
-                                </div>
-                                <div class="sidebar2_listB">
-                                    <div class="list_c"></div>
-                                </div>
-                            </div>
-                        </li>
-                            <!---QQ-->
-                            <!---二维码-->
-                            <li class="list">
-                            <a class="edit_icon" href="###"></a>
-                            <div class="explain_text alt_c" style="right: -106px; opacity: 0;">
-                                <div class="sidebar2_listT">
-                                    <div class="list_c"></div>
-                                </div>
-                                <div class="explain_c alt_bg">
-                                    <a href="/self_define/guest_book.php?username=a363703490">
-                                    <em>&#22312;&#32447;&#30041;&#35328;</em></a>
-                                </div>
-                                <div class="sidebar2_listB">
-                                    <div class="list_c"></div>
-                                </div>
-                            </div>
-                        </li>
-                        <!-- 发送邮件 -->
-                                                    <li class="list">
-                                <a class="mail_icon" href="###"></a>
-                                <div class="explain_text alt_c" style="right: -106px; opacity: 0;">
-                                    <div class="sidebar2_listT">
-                                        <div class="list_c"></div>
-                                    </div>
-                                    <div class="explain_c alt_bg">
-                                        <a href="mailto:363703490@qq.com"><em>&#21457;&#36865;&#37038;&#20214;</em></a>
-                                    </div>
-                                    <div class="sidebar2_listB">
-                                        <div class="list_c"></div>
-                                    </div>
-                                </div>
-                            </li>
-                                                                    </ul>
-                    <a id="next_btn" class="next_btn" href="###">
-                        <img src="<?php echo get_template_directory_uri(); ?>/images/img/next_icon.png">
-                    </a>
-                </div>
-                <div class="sidebar2_listB ie_w">
-                    <div class="list_c"></div>
-                </div>
-            </div>
-            <div class="sidebar2_state">
-                <a id="state_btn" href="###" class=""></a>
-            </div>
-        </div>
-    </div>
-
-
 <script>
-function initialize() {
-  var mp = new BMap.Map('dituContent');
-  mp.centerAndZoom(new BMap.Point(121.491, 31.233), 11);
-}
-
-function loadScript() {
-  var script = document.createElement("script");
-  script.src = "//api.map.baidu.com/api?v=2.0&ak=kpIZZ664I8VuhRdey1zStcG4uHuu27aQ&callback=initialize";
-  document.body.appendChild(script);
-}
-
-window.onload = loadScript;
-</script>
-
- <!--    <script type="text/javascript">
-        // var map = new BMap.Map("dituContent");          // 创建地图实例
-        // var point = new BMap.Point(116.404, 39.915);  // 创建点坐标
-        // map.centerAndZoom(point, 15);                 // 初始化地图，设置中心点坐标和地图级别
-        // map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
-
-
-    //创建和初始化地图函数：
-    function initMap(){
-        createMap();//创建地图
-        setMapEvent();//设置地图事件
-        addMapControl();//向地图添加控件
-        addMarker();//向地图中添加marker
-    }
-
-    //创建地图函数：
-    function createMap(){
-        var map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
-        var point = new BMap.Point(103.656866,30.984384);//定义一个中心点坐标
-        map.centerAndZoom(point,18);//设定地图的中心点和坐标并将地图显示在地图容器中
-        window.map = map;//将map变量存储在全局
-    }
-
-    //地图事件设置函数：
-    function setMapEvent(){
-        map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
-        map.enableScrollWheelZoom();//启用地图滚轮放大缩小
-        map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
-        map.enableKeyboard();//启用键盘上下左右键移动地图
-    }
-
-    //地图控件添加函数：
-    function addMapControl(){
-        //向地图中添加缩放控件
+    var map = new BMap.Map("baiduMapC");
+    var point = new BMap.Point(<?php echo _ll2('ll_baidu_jwd'); ?>);
+    var marker = new BMap.Marker(point);  // 创建标注
+    map.addOverlay(marker);              // 将标注添加到地图中
+    map.centerAndZoom(point, 19);
+    map.enableScrollWheelZoom(true);
     var ctrl_nav = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_ZOOM});
     map.addControl(ctrl_nav);
-                }
+</script>
 
-    //标注点数组
-    var markerArr = [{title:"成都若珂时代广告有限责任公司",content:"地址：都江堰市彩虹大道南段362-364号",point:"103.65661|30.984314",isOpen:1,icon:{w:23,h:25,l:46,t:21,x:9,lb:12}}
-         ];
-    //创建marker
-    function addMarker(){
-        for(var i=0;i<markerArr.length;i++){
-            var json = markerArr[i];
-            var p0 = json.point.split("|")[0];
-            var p1 = json.point.split("|")[1];
-            var point = new BMap.Point(p0,p1);
-            var iconImg = createIcon(json.icon);
-            var marker = new BMap.Marker(point,{icon:iconImg});
-            var iw = createInfoWindow(i);
-            var label = new BMap.Label(json.title,{"offset":new BMap.Size(json.icon.lb-json.icon.x+10,-20)});
-            marker.setLabel(label);
-            map.addOverlay(marker);
-            label.setStyle({
-                        borderColor:"#808080",
-                        color:"#333",
-                        cursor:"pointer"
-            });
 
-            (function(){
-                var index = i;
-                var _iw = createInfoWindow(i);
-                var _marker = marker;
-                _marker.addEventListener("click",function(){
-                    this.openInfoWindow(_iw);
-                });
-                _iw.addEventListener("open",function(){
-                    _marker.getLabel().hide();
-                })
-                _iw.addEventListener("close",function(){
-                    _marker.getLabel().show();
-                })
-                label.addEventListener("click",function(){
-                    _marker.openInfoWindow(_iw);
-                })
-                if(!!json.isOpen){
-                    label.hide();
-                    _marker.openInfoWindow(_iw);
-                }
-            })()
-        }
-    }
-    //创建InfoWindow
-    function createInfoWindow(i){
-        var json = markerArr[i];
-        var iw = new BMap.InfoWindow("<b class='iw_poi_title' title='" + json.title + "'>" + json.title + "</b><div class='iw_poi_content'>"+json.content+"</div>");
-        return iw;
-    }
-    //创建一个Icon
-    function createIcon(json){
-        var icon = new BMap.Icon("/images/map-marker.png", new BMap.Size(json.w,json.h),{imageOffset: new BMap.Size(-json.l,-json.t),infoWindowOffset:new BMap.Size(json.lb+5,1),offset:new BMap.Size(json.x,json.h)})
-        return icon;
-    }
-
-        initMap();
-    </script> -->
-<?php wp_footer(); ?>
-</body>
-
-</html>
+<?php get_footer(); ?>

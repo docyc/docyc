@@ -24,6 +24,13 @@ $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 // }
 
 /**************************************
+ * 开启wordpress友情链接管理
+ **************************************/
+
+add_filter( 'pre_option_link_manager_enabled', '__return_true' );
+
+
+/**************************************
  * 开启网站RSS自动订阅
  **************************************/
 
@@ -41,6 +48,8 @@ add_theme_support('post-thumbnails');
 
 register_nav_menu( 'zhudaohang', '网站的顶部导航' );     //注册一个菜单
 register_nav_menu( 'dibudaohang', '网站的底部导航' );   //注册第二个菜单
+register_nav_menu( 'nav_anli', '案例侧导航' );   //注册第三个菜单
+register_nav_menu( 'nav_news', '新闻侧导航' );   //注册第四个菜单
 
 /**************************************
  * 开启侧边栏小工具
@@ -95,6 +104,223 @@ function docyc_wp_title($title, $sep) {
 
     return $title;
 }
+
+/**************************************
+ * 字符截取
+ **************************************/
+/**
+* ll2_strimwidth( ) 函数
+* 功能：字符串截取，并去除字符串中的html和php标签
+* @Param string $str            要截取的原始字符串
+* @Param int $len               截取的长度
+* @Param string $suffix     字符串结尾的标识
+* @Return string                    处理后的字符串
+*/
+function ll2_strimwidth( $str, $len, $start = 0, $suffix = '……' ) {
+    $str = str_replace(array(' ', '　','&nbsp;', '\r\n'), '', strip_tags( $str ));
+    if ( $len>mb_strlen( $str ) ) {
+        return mb_substr( $str, $start, $len );
+    }
+    return mb_substr($str, $start, $len) . $suffix;
+}
+
+/**
+* getPostViews()函数
+* 功能：获取阅读数量
+* 在需要显示浏览次数的位置，调用此函数
+* @Param object|int $postID   文章的id
+* @Return string $count		  文章阅读数量
+*/
+function getPostViews( $postID ) {
+    $count_key = 'post_views_count';
+    $count = get_post_meta( $postID, $count_key, true );
+    if( $count=='' ) {
+        delete_post_meta( $postID, $count_key );
+        add_post_meta( $postID, $count_key, '0' );
+        return "0";
+    }
+   return $count;
+}
+
+
+/**
+* setPostViews()函数  
+* 功能：设置或更新阅读数量
+* 在内容页(single.php，或page.php )调用此函数
+* @Param object|int $postID   文章的id
+* @Return string $count		  文章阅读数量
+*/
+function setPostViews( $postID ) {
+    $count_key = 'post_views_count';
+    $count = get_post_meta( $postID, $count_key, true );
+    if( $count=='' ) {
+        $count = 0;
+        delete_post_meta( $postID, $count_key );
+        add_post_meta( $postID, $count_key, '0' );
+    } else {
+        $count++;
+        update_post_meta( $postID, $count_key, $count );
+    }
+}
+
+
+/**************************************
+ * 面包屑导航
+ **************************************/
+
+ /**
+* docyc_breadcrumbs()函数
+* 功能是输出面包屑导航HTML代码
+* @Param null           不需要输入任何参数
+* @Return string        输出HTML代码
+*/
+//设置添加面包屑导航
+function ll2_breadcrumbs() {
+	$delimiter = '»'; 
+	$before = '<span class="current">'; 
+	$after = '</span>';
+	if ( !is_home() || is_paged() ) {
+		echo '<div id="crumbs">'.__( '' , 'cmp' );
+		global $post;
+		$homeLink = home_url();
+		echo ' <a itemprop="breadcrumb" href="' . $homeLink . '">' . __( '<i class="fa fa-home"></i>首页' , 'cmp' ) . '</a> ' . $delimiter . ' ';
+		if ( is_category() ) { 
+			global $wp_query;
+			$cat_obj = $wp_query->get_queried_object();
+			$thisCat = $cat_obj->term_id;
+			$thisCat = get_category($thisCat);
+			$parentCat = get_category($thisCat->parent);
+			if ($thisCat->parent != 0){
+				$cat_code = get_category_parents($parentCat, TRUE, ' ' . $delimiter . ' ');
+				echo $cat_code = str_replace ('<a','<a itemprop="breadcrumb"', $cat_code );
+			}
+			echo $before . '' . single_cat_title('', false) . '' . $after;
+		} elseif ( is_day() ) { 
+			echo '<a itemprop="breadcrumb" href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a> ' . $delimiter . ' ';
+			echo '<a itemprop="breadcrumb"  href="' . get_month_link(get_the_time('Y'),get_the_time('m')) . '">' . get_the_time('F') . '</a> ' . $delimiter . ' ';
+			echo $before . get_the_time('d') . $after;
+		} elseif ( is_month() ) { 
+			echo '<a itemprop="breadcrumb" href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a> ' . $delimiter . ' ';
+			echo $before . get_the_time('F') . $after;
+		} elseif ( is_year() ) { 
+			echo $before . get_the_time('Y') . $after;
+		} elseif ( is_single() && !is_attachment() ) { 
+			if ( get_post_type() != 'post' ) { 
+				$post_type = get_post_type_object(get_post_type());
+				$slug = $post_type->rewrite;
+				echo '<a itemprop="breadcrumb" href="' . $homeLink . '/' . $slug['slug'] . '/">' . $post_type->labels->singular_name . '</a> ' . $delimiter . ' ';
+				echo $before . get_the_title() . $after;
+			} else { 
+				$cat = get_the_category(); $cat = $cat[0];
+				$cat_code = get_category_parents($cat, TRUE, ' ' . $delimiter . ' ');
+				echo $cat_code = str_replace ('<a','<a itemprop="breadcrumb"', $cat_code );
+				echo $before . get_the_title() . $after;
+			}
+		} elseif ( !is_single() && !is_page() && get_post_type() != 'post' ) {
+			$post_type = get_post_type_object(get_post_type());
+			echo $before . $post_type->labels->singular_name . $after;
+		} elseif ( is_attachment() ) { 
+			$parent = get_post($post->post_parent);
+			$cat = get_the_category($parent->ID); $cat = $cat[0];
+			echo '<a itemprop="breadcrumb" href="' . get_permalink($parent) . '">' . $parent->post_title . '</a> ' . $delimiter . ' ';
+			echo $before . get_the_title() . $after;
+		} elseif ( is_page() && !$post->post_parent ) { 
+			echo $before . get_the_title() . $after;
+		} elseif ( is_page() && $post->post_parent ) { 
+			$parent_id  = $post->post_parent;
+			$breadcrumbs = array();
+			while ($parent_id) {
+				$page = get_page($parent_id);
+				$breadcrumbs[] = '<a itemprop="breadcrumb" href="' . get_permalink($page->ID) . '">' . get_the_title($page->ID) . '</a>';
+				$parent_id  = $page->post_parent;
+			}
+			$breadcrumbs = array_reverse($breadcrumbs);
+			foreach ($breadcrumbs as $crumb) echo $crumb . ' ' . $delimiter . ' ';
+			echo $before . get_the_title() . $after;
+		} elseif ( is_search() ) { 
+			echo $before ;
+			printf( __( '搜索结果: %s', 'cmp' ),  get_search_query() );
+			echo  $after;
+		} elseif ( is_tag() ) { 
+			echo $before ;
+			printf( __( '标签存档: %s', 'cmp' ), single_tag_title( '', false ) );
+			echo  $after;
+		} elseif ( is_author() ) { 
+			global $author;
+			$userdata = get_userdata($author);
+			echo $before ;
+			printf( __( '作者存档: %s', 'cmp' ),  $userdata->display_name );
+			echo  $after;
+		} elseif ( is_404() ) { 
+			echo $before;
+			_e( 'Not Found', 'cmp' );
+			echo  $after;
+		}
+		if ( get_query_var('paged') ) { 
+			if ( is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author() )
+				echo sprintf( __( ' ( 第 %s 页 )', 'cmp' ), get_query_var('paged') );
+		}
+		echo '</div>';
+	}
+}
+
+
+/**************************************
+ * 数字分页函数
+ **************************************/
+/**
+* 数字分页函数
+* 因为wordpress默认仅仅提供简单分页
+* 所以要实现数字分页，需要自定义函数
+* @Param int $range         数字分页的宽度
+* @Return string|empty      输出分页的HTML代码
+*/
+function ll2_pagenavi( $range = 4 ) {
+    global $paged,$wp_query;
+    if ( !$max_page ) {
+        $max_page = $wp_query->max_num_pages;
+    }
+    if( $max_page >1 ) {
+        echo "<div class='fenye'>";
+        if( !$paged ){
+            $paged = 1;
+        }
+        if( $paged != 1 ) {
+            echo "<a href='".get_pagenum_link(1) ."' class='extend' title='跳转到首页'>首页</a>";
+        }
+        previous_posts_link('上一页');
+        if ( $max_page >$range ) {
+            if( $paged <$range ) {
+                for( $i = 1; $i <= ($range +1); $i++ ) {
+                    echo "<a href='".get_pagenum_link($i) ."'";
+                if($i==$paged) echo " class='current'";echo ">$i</a>";
+                }
+            }elseif($paged >= ($max_page -ceil(($range/2)))){
+                for($i = $max_page -$range;$i <= $max_page;$i++){
+                    echo "<a href='".get_pagenum_link($i) ."'";
+                    if($i==$paged)echo " class='current'";echo ">$i</a>";
+                    }
+                }elseif($paged >= $range &&$paged <($max_page -ceil(($range/2)))){
+                    for($i = ($paged -ceil($range/2));$i <= ($paged +ceil(($range/2)));$i++){
+                        echo "<a href='".get_pagenum_link($i) ."'";if($i==$paged) echo " class='current'";echo ">$i</a>";
+                    }
+                }
+            }else{
+                for($i = 1;$i <= $max_page;$i++){
+                    echo "<a href='".get_pagenum_link($i) ."'";
+                    if($i==$paged)echo " class='current'";echo ">$i</a>";
+                }
+            }
+        next_posts_link('下一页');
+        if($paged != $max_page){
+            echo "<a href='".get_pagenum_link($max_page) ."' class='extend' title='跳转到最后一页'>尾页</a>";
+        }
+        echo '<span>共['.$max_page.']页</span>';
+        echo "</div>\n";
+    }
+}
+
+
 
 
 /**************************************
